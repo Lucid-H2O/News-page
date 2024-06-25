@@ -1,27 +1,38 @@
 import { useEffect, useState } from "react";
-import Card from "./Card";
-
-console.log();
+import Card from "./NewsCard";
+import Widget from "./Widget";
 
 export default function App() {
-  var url = 'https://newsapi.org/v2/top-headlines?' +
-          'country=hk&' +
-          'apiKey=' + process.env.REACT_APP_NEWS_API_KEY;
+  var urlNews = new URL('https://newsapi.org/v2/top-headlines?') + new URLSearchParams({
+    country: 'hk',
+    apiKey: process.env.REACT_APP_NEWS_API_KEY,
+  })
+  
+  var urlWeather = new URL('https://api.weatherapi.com/v1/forecast.json?') + new URLSearchParams({
+    key: process.env.REACT_APP_WEATHER_API_KEY,
+    q: 'hk',
+    days: 7,
+  })
 
-  var req = new Request(url);
-
-  const [Article, setArticle] = useState('')
+  const [Article, setArticle] = useState('');
+  const [Weather, setWeather] = useState('');
 
   useEffect(()=>{
-    fetch(req)
+    fetch(urlNews)
       .then((response) => response.json())
       .then((data) => setArticle(data.articles));
   },[])
 
-  useEffect(()=>{console.log(Article)},[Article]);
+  useEffect(()=>{
+    fetch(urlWeather,{method: "GET",})
+      .then((response) => response.json())
+      .then((data) => setWeather(data));
+  },[])
   
 
-  return (<div className="app"><h1>News</h1>
+  return (<div className="app">
+        {Weather !== '' ? <Widget data ={Weather}></Widget> : null}
+        <h1>Top News Headlines</h1>
         {Article !== '' ? Article.map((articles,index)=>(<Card key={index} article={articles} />)) : null}
     </div>
   );

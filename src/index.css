@@ -51,7 +51,9 @@ h1{
 
 .weatherCard{
   display: block;
-  width: 15%;
+  flex-grow: 1;
+  flex-basis: 0;
+  min-width: 120px;
   background-color: hwb(0 100% 0%);
   border: 1px solid rgba(0, 0, 0, 0.151);
   border-radius: 0.2em;
@@ -62,7 +64,9 @@ h1{
 
 .weatherList{
   display: flex;
+  flex-wrap: wrap;
   padding: 0;
+  justify-content: center;
 }
 
 .main{

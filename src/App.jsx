@@ -33,7 +33,7 @@ export default function App() {
   return (<div className="app">
         {Weather !== '' ? <Widget data ={Weather}></Widget> : null}
         <h1>Top News Headlines</h1>
-        {Article !== '' ? Article.map((articles,index)=>(<Card key={index} article={articles} />)) : null}
+        {Article !== '' ? Article.map((articles,index)=>(index<5 ? <Card key={index} article={articles} /> : null)) : null}
     </div>
   );
 }

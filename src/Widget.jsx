@@ -1,8 +1,6 @@
 import WeatherCard from "./WeatherCard";
 
 export default function Widget(props){
-
-    console.log(props.data);
     
     var forecasts = props.data.forecast.forecastday;
     var location = props.data.location;
@@ -20,7 +18,7 @@ export default function Widget(props){
     </div>
         <h1>Weather Forecasts</h1>
         <ul className="weatherList">
-            {forecasts.map((forecast,index)=> index !== 0 ? <WeatherCard date={forecast.date} forecastDay={forecast.day} /> : null) }  
+            {forecasts.map((forecast,index)=> index !== 0 ? <WeatherCard key={index} date={forecast.date} forecastDay={forecast.day} /> : null) }  
         </ul>
     </div>)
 }
